@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width:100%;
+    height: 100%;
+    overflow:hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(TaiNguyen/IconsGame/Nen.jpg);
+    background-size: cover;
+    background-position:center;
+    background-repeat: no-repeat;
+}
+.Khung Game {
+    position: relative;
+    width:100vw;
+    height: 100vh;
+    min-width: 1100px;
+    min-height: 650px;
+}
+.Game title {
+    position: relative;
+     top: 7%;
+    left: 6%;
+
+    font-size: 60px;
+
+    font-weight: 900;
+
+    font-style: italic;
+
+    color: #00fbff;
+
+    -webkit-text-stroke: 4px black;
+
+    text-shadow:
+        4px 5px 0 black;
+
+    z-index: 20;
+}
+.Ben Trai {
+    position: absolute;
+
+    left: 17%;
+
+    top: 22%;
+
+    width: 120px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 15px;
+}
+.Khung Xu {
+    width: 115px;
+
+    height: 100px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.95),
+            rgba(255,120,170,.9)
+        );
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.25);
+}
+.Số Điểm {
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    text-shadow:
+        1px 2px 3px rgba(0,0,0,.4);
+}
+.Gia Tri {
+    margin-top: 5px;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    color: #111;
+}
+.Khung Xu {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 5px 12px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.9);
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+.Khung Xu img {
+      width: 28px;
+
+    height: 28px;
+
+    object-fit: contain;
+}
+/*64 ô
