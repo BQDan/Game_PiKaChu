@@ -78,19 +78,13 @@ body{
             rgba(255,255,255,.95),
             rgba(255,120,170,.9)
         );
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,.25);
 }
 .Số-điểm {
-    color: white;
-
+    color: rgb(236, 23, 23);
+    text-align: center;
     font-size: 18px;
-
+    white-space: nowrap;
     font-weight: bold;
-
-    text-shadow:
-        1px 2px 3px rgba(0,0,0,.4);
 }
 .Gia-Tri {
     margin-top: 5px;
@@ -127,8 +121,8 @@ body{
 }
 /*Khung Bên Trái*/
 .Khung {
-    width: 120px;
-    min-height: 85;
+    width: 130px;
+    min-height: 90px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -155,7 +149,7 @@ body{
     padding: 8px;
     border: 3px solid white ;
     border-radius: 15px;
-    background: linear-gradient(135dg, #00fbff, #a18aff);
+    background: linear-gradient(135deg,#00fbff, #a18aff);
     color: white;
     font-size: 16px;
     font-weight: bold;
@@ -187,19 +181,164 @@ background: rgba(40, 25, 80, 0.65);
     display: flex;
     justify-content: center;
     align-items: center;
-    verflow: hidden;
+  overflow: hidden; 
     border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: 8px;
     background: linear-gradient(135deg, #fff0fa, #dcd2ff);
     cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
+   transition: transform 0.2s, background 0.2s;
 }
 .ô img {
-    width: 80%;
-    height: 80%;
+    width: 65%;
+    height: 65%;
     object-fit: contain;
 }
 .ô:hover {
-    transform: scale(1.2);
-    background: #fff5a8; 
+    transform: scale(1.1) 
+}
+.Thời-gian {
+        position: absolute;
+        top: 5%;
+        right: 2.5%;
+        width: 360px;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        gap: 10px;
+}
+.Thời-gian img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+.time-track {
+    width: 100%;
+    height: 22px;
+    overflow: hidden;
+    border: 3px solid red;
+    border-radius: 20px;
+}
+.time-fill {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #ffb6d9, #a18aff);
+    transition: width 0.3s linear;
+}
+.Phải {
+    position: absolute;
+    top: 25%;
+    right: 5%;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap:15px;
+}
+.menu-button {
+    width: 140px;
+    min-height: 48px;
+    padding: 8px;
+    border:3px solid white;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #ff8bc7, #9b83ff);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, filter 0.2s;
+}
+.menu-button:hover{
+    transform: scale(1);
+    filter: brightness(1.1);
+}
+.exit {
+    width: 140px;
+    min-height: 48px;
+    padding: 8px;
+    border: 3px solid white;
+    border-radius:14px;
+    background: linear-gradient(135deg, #ff5555, #d90055);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+}
+.exit:hover {
+    transform: scale(1);
+    filter: brightness(1.1);
+}
+.Phải {
+    top: 20%;
+    right: 3%;
+    width: 150px;
+    gap: 13px;
+
+}
+.exit {
+    width: 150px;
+    min-height: 48px;
+    font-size: 16px;
+}
+.menu-button {
+    width: 150px;
+    min-height: 48px;
+    font-size: 16px;
+}
+.Khung {
+    width: 140px;
+    min-width: 90px;
+    padding: 10px;
+}
+.Số-điểm {
+    text-align: center;
+    white-space: nowrap;
+    font-size: 16px;
+
+}
+.Ben-Trai .nút {
+    width: 130px;
+    min-height: 60px;
+    padding: 8px;
+    font-size: 15px;
+    line-height: 1.2;
+    border-radius: 10px;
+    color: red;
+}
+.Phải .menu-button:first-child {
+    width: 150px;
+    min-height: 48px;
+    padding: 8px;
+    line-height: 1.3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: normal;
+    border: 3px solid white;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #42c9ff, #6978ff);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    height: 48px;
+}
+.Đồng-hồ {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 15px;
+}
+.Đồng-hồ img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain
+}
+#ĐẾM-NGƯỢC {
+    font-size:28px;
+    font-weight: bold;
+    color: white;
+
 }
