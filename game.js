@@ -17,20 +17,20 @@ let xu =0;
 let ThoiGianConLai = 600;
 let OChon = null;
 let Game = true;
-OTroChoi.forEach(function(O) {
-    O.addEventListener("click", function() {
-        if(OChon ==null) {
-            OChon=O;
-            O.style.border = "3px solid red";
-            console.log();
-        }
-        else {
-            console.log();
-            OChon.style.border="";
-            OChon=null;
-        }
-    });
-});
+// OTroChoi.forEach(function(O) {
+//     O.addEventListener("click", function() {
+//         if(OChon ==null) {
+//             OChon=O;
+//             O.style.border = "3px solid red";
+//             console.log();
+//         }
+//         else {
+//             console.log();
+//             OChon.style.border="";
+//             OChon=null;
+//         }
+//     });
+// });
 let O2= null;
 OTroChoi.forEach(function(O) {
     O.addEventListener("click", function(){
@@ -60,5 +60,28 @@ OTroChoi.forEach(function(O) {
 
         }
 
-        });
+        }); 
     });
+// Cộng điểm khi chọn đúng
+function KhiChonDung (O1, O2) {
+    O1.style.visibility = "hidden";
+    O2.style.visibility ="hidden";
+    Diem = Diem +10;
+    HienDiem.textContent = Diem;
+  
+}
+function OConLai() {
+    let SoOConLai = 0;
+    OTroChoi.forEach(function(O){
+        if(O.style.visibility !=="BM") {
+            SoOConLai ++;
+
+        }
+
+    });
+    console.log("Số ô còn lại: ", SoOConLai);
+    if(SoOConLai === 0) {
+        console.log ("End game");
+
+    }
+}
