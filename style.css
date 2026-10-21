@@ -224,6 +224,7 @@ background: rgba(40, 25, 80, 0.65);
     border-radius: 20px;
     background: linear-gradient(90deg, #ffb6d9, #a18aff);
     transition: width 0.3s linear;
+    transition: width 1s linear;
 }
 .Phải {
     position: absolute;
