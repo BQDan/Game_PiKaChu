@@ -91,17 +91,33 @@ function OConLai() {
 }
 // Cộng điểm và đếm số ô còn lại
 function SoAnh(O1, O2) {
-    let Anh1 = O1.querySelector("img").src;
-    let Anh2 = O2.querySelector("img").src;
+    const Anh1 = O1.querySelector("img");
+    const Anh2 = O2.querySelector("img");
     // So hình
-    if (Anh1 === Anh2) {
-        KhiChonDung (O1, O2);
-        OConLai();
+    if (!Anh1 || !Anh2) {
+        return;
     }
-    else {
-        console.log("Khác nhau");
-        }
+    //
+    if (Anh1.src !== Anh2.src) {
+        console.log("Hinh khác nhau");
+        return;
     }
+    const DuongDi = TimDuong(O1, O2);
+    if (DuongDi === null) {
+        console.log("Không có đường đi hợp lệ");
+        return;
+    }
+
+    console.log("Đường hợp lệ:", DuongDi);
+
+    // Xóa hai ô khi tìm được đường đi
+    KhiChonDung(O1, O2);
+    OConLai();
+}
+
+
+
+
     // Thời gian
     function DemNguoc() {
         ThoiGian.textContent = ThoiGianConLai;
@@ -131,12 +147,97 @@ function SoAnh(O1, O2) {
 const BanCo = document.querySelector(".Bàn-cờ");
 function LayKichThuocBan() {
     const CSSBanCo = getComputedStyle(BanCo);
-    const Cot = CSSBanCo.gridTemplateColumns.split("").filter(Boolean).length;
-    const Hang = CSSBanCo.gridTemplateRows.split("").filter(Boolean).length;
-    return { Hang , Cot};
+    const Cot = CSSBanCo.gridTemplateColumns
+    .trim()
+    .split(/\s+/)
+    .length;
+    const Hang = CSSBanCo.gridTemplateRows
+    .trim()
+    .split(/\s+/)
+    .length;
+    console.log("Số Hàng: ", Hang);
+    console.log("Số cột: ", Cot);
+    return { Hang, Cot};
 }
+console.log("Kích thước bàn cờ:", LayKichThuocBan());
+// BFS tìm đường đi
+function LayViTri(O) {
+    const ViTriO = Array.from(OTroChoi).indexOf(O);
+    const { Hang, Cot} = LayKichThuocBan();
+    return {
+        Hang: Math.floor(ViTriO/ Cot), Cot: ViTriO %Cot
+    };
+}
+function ODangCon(O) {
+    return getComputedStyle(O).visibility !== "hidden"
+    && getComputedStyle(O).display !== "none";
+}
+function TimDuong (O1, O2) {
+    const { Hang, Cot } = LayKichThuocBan();
+    const ViTri1 = LayViTri(O1);
+    const ViTri2 = LayViTri(O2);
+    const Huong  = [
+        [-1,0],
+        [1,0],
+        [0,-1],
+        [0,1]
+    ];
+    const HangDoi = [ {
+        Hang: ViTri1.Hang,
+        Cot: ViTri1.Cot,
+        HuongCu: -1,
+        SoLanRe: 0,
+        DuongDi: [[ViTri1.Hang, ViTri1.Cot]] //Đường đi của ô
+    }];
+    const ODaKiemTra = new Set();
+    while(HangDoi.length > 0) {
+        const Nut = HangDoi.shift();
+        for ( let i=0; i< Huong.length; i++ ) {
+            const Hangnew = Nut.Hang + Huong[i][0];
+            const Cotnew = Nut.Cot + Huong[i][1];
 
+        // bổ sung không cho chạy ngoài
+        if (
+            Hangnew < 0 || Hangnew >= Hang || Cotnew < 0 || Cotnew >= Cot
+        ) {
+            continue
+        }
+        let SoLanRe = Nut.SoLanRe;
+        if (
+            Nut.HuongCu != -1 && Nut.HuongCu != i
+        )
+        {
+            SoLanRe ++;
 
-
-
-    
+        }
+        if (SoLanRe > 2) {
+            continue
+        }
+        const Duongnew = [...Nut.DuongDi, [ Hangnew, Cotnew]];
+        // Hiện đường đã đi
+        if (
+            Hangnew === ViTri2.Hang && Cotnew === ViTri2.Cot
+        ) {
+            return Duongnew;
+        }
+        const OKeTiep = OTroChoi[Hangnew *Cot + Cotnew];
+        // Không đi xuyên ô
+        if (ODangCon(OKeTiep)) {
+            continue;
+        }
+        const Khoa = `${Hangnew}-${Cotnew}-${i}-${SoLanRe}`;
+        if (ODaKiemTra.has(Khoa)) {
+            continue
+        }
+        ODaKiemTra.add(Khoa);
+        HangDoi.push ({
+            Hang: Hangnew,
+            Cot: Cotnew,
+            HuongCu: i,
+            SoLanRe: SoLanRe,
+            DuongDi: Duongnew
+        });
+    }
+}
+return null;
+}
