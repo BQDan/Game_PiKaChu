@@ -4,7 +4,370 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome_PiKaChu_ Welcome</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width:100%;
+    height: 100%;
+    overflow:hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(TaiNguyen/IconsGame/Nen.jpg);
+    background-size: cover;
+    background-position:center;
+    background-repeat: no-repeat;
+}
+.Khung-Game {
+    position: relative;
+    width:100vw;
+    height: 100vh;
+    min-width: 1100px;
+    min-height: 650px;
+}
+.Game-title {
+    position: relative;
+     top: 7%;
+    left: 6%;
+
+    font-size: 60px;
+
+    font-weight: 900;
+
+    font-style: italic;
+
+    color: #00fbff;
+
+    -webkit-text-stroke: 4px black;
+
+    text-shadow:
+        4px 5px 0 black;
+
+    z-index: 20;
+}
+.Ben-Trai {
+    position: absolute;
+
+    left: 17%;
+
+    top: 22%;
+
+    width: 120px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 15px;
+}
+.Khung-Xu {
+    width: 120px;
+
+    height: 120px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.95),
+            rgba(255,120,170,.9)
+        );
+}
+.Số-điểm {
+    color: rgb(236, 23, 23);
+    text-align: center;
+    font-size: 18px;
+    white-space: nowrap;
+    font-weight: bold;
+}
+.Gia-Tri {
+    margin-top: 5px;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    color: #111;
+}
+.Khung-Xu {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 5px 12px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.9);
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+.Khung-Xu img {
+      width: 28px;
+
+    height: 28px;
+
+    object-fit: contain;
+}
+/*Khung Bên Trái*/
+.Khung {
+    width: 130px;
+    min-height: 90px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ffb6d9, #a18aff);
+    border: 3px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+
+}
+/*Điểm*/
+.Gia-Tri {
+    margin-top: 5px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #111;
+}
+/*Khung bên trái*/
+.Ben-Trai .nút {
+    width: 115px;
+    min-width: 68px;
+    padding: 8px;
+    border: 3px solid white ;
+    border-radius: 15px;
+    background: linear-gradient(135deg,#00fbff, #a18aff);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.Ben-Trai .nút:hover {
+    transform: scale(1);
+    filter: brightness(1.5);
+}
+.Bàn-cờ{
+position:absolute;
+top: 12%;
+left: 32%;
+width: 600px;
+height: 600px;
+display: grid;
+grid-template-columns: repeat(8, 1fr);
+grid-template-rows: repeat(8, 1fr);
+gap: 5px;
+padding: 8px;
+border: 8px solid white;
+border-radius: 15px;
+background: rgba(40, 25, 80, 0.65);
+background: rgba(40, 25, 80, 0.65);
+}
+.ô {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  overflow: hidden; 
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    background: linear-gradient(135deg, #fff0fa, #dcd2ff);
+    cursor: pointer;
+   transition: transform 0.2s, background 0.2s;
+}
+.ô img {
+    width: 65%;
+    height: 65%;
+    object-fit: contain;
+}
+.ô:hover {
+    transform: scale(1.1) 
+}
+.Thời-gian {
+        position: absolute;
+        top: 5%;
+        right: 2.5%;
+        width: 360px;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        gap: 10px;
+}
+.Thời-gian img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+.time-track {
+    width: 100%;
+    height: 22px;
+    overflow: hidden;
+    border: 3px solid red;
+    border-radius: 20px;
+}
+.time-fill {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #ffb6d9, #a18aff);
+    transition: width 0.3s linear;
+    transition: width 1s linear;
+}
+.Phải {
+    position: absolute;
+    top: 25%;
+    right: 5%;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap:15px;
+}
+.menu-button {
+    width: 140px;
+    min-height: 48px;
+    padding: 8px;
+    border:3px solid white;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #ff8bc7, #9b83ff);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, filter 0.2s;
+}
+.menu-button:hover{
+    transform: scale(1);
+    filter: brightness(1.1);
+}
+.exit {
+    width: 140px;
+    min-height: 48px;
+    padding: 8px;
+    border: 3px solid white;
+    border-radius:14px;
+    background: linear-gradient(135deg, #ff5555, #d90055);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+}
+.exit:hover {
+    transform: scale(1);
+    filter: brightness(1.1);
+}
+.Phải {
+    top: 20%;
+    right: 3%;
+    width: 150px;
+    gap: 13px;
+
+}
+.exit {
+    width: 150px;
+    min-height: 48px;
+    font-size: 16px;
+}
+.menu-button {
+    width: 150px;
+    min-height: 48px;
+    font-size: 16px;
+}
+.Khung {
+    width: 140px;
+    min-width: 90px;
+    padding: 10px;
+}
+.Số-điểm {
+    text-align: center;
+    white-space: nowrap;
+    font-size: 16px;
+
+}
+.Ben-Trai .nút {
+    width: 130px;
+    min-height: 60px;
+    padding: 8px;
+    font-size: 15px;
+    line-height: 1.2;
+    border-radius: 10px;
+    color: red;
+}
+.Phải .menu-button:first-child {
+    width: 150px;
+    min-height: 48px;
+    padding: 8px;
+    line-height: 1.3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: normal;
+    border: 3px solid white;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #42c9ff, #6978ff);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    height: 48px;
+}
+.Đồng-hồ {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 15px;
+}
+.Đồng-hồ img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain
+}
+#ĐẾM-NGƯỢC {
+    font-size:28px;
+    font-weight: bold;
+    color: white;
+
+}
+#DuongNoi {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    overflow: visible;
+}
+#DuongNoi polyline {
+    fill: none;
+    stroke: red;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+    </style>
 </head>
 <body>
     <div class="Khung-Game">
@@ -25,14 +388,14 @@
         src="TaiNguyen/IconsGame/DiemXu.png"
         alt="Xu"
         >
-        <span>0</span>
+        <span>999</span>
     </div>
     <!--Luat choi-->
-    <button class="nút">
+    <button class="nút" id="NutLuatChoi">
         Luật Chơi 
     </button>
     <!--Quyền trợ giúp-->
-    <button class="nút">
+    <button class="nút" id="HelpMe">
         Quyền Trợ Giúp 
     </button>
 </div>
@@ -257,28 +620,29 @@
     <button class="menu-button">
         Làm mới thời gian
     </button>
-    <button class="menu-button">
+    <button class="menu-button" data-level="1">
         LEVEL 1
     </button>
-        <button class="menu-button">
+        <button class="menu-button" data-level="2">
         LEVEL 2
     </button>
-        <button class="menu-button">
+        <button class="menu-button" data-level="3">
         LEVEL 3
     </button>
-        <button class="menu-button">
+        <button class="menu-button" data-level="4">
         LEVEL 4
     </button>
-        <button class="menu-button">
+        <button class="menu-button" data-level="5">
         LEVEL 5
     </button>
-        <button class="menu-button">
+        <button class="menu-button" data-level="6">
         LEVEL 6
     </button>
         <button class="exit">
         THOÁT
     </button>
 </div>
+<svg id="DuongNoi"></svg>
 <script src="game.js"></script>
 </body>
 </html>

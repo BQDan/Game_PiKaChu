@@ -1,4 +1,14 @@
 const OTroChoi = document.querySelectorAll(".ô");
+// Bố cục
+const BoCucLevel = [
+    { Hang: 4, Cot: 6, SoAnh: 4, ThoiGian: 180 },
+    { Hang: 6, Cot: 6, SoAnh: 5, ThoiGian: 240 },
+    { Hang: 8, Cot: 6, SoAnh: 6, ThoiGian: 360 },
+    { Hang: 8, Cot: 7, SoAnh: 7, ThoiGian: 420 },
+    { Hang: 8, Cot: 8, SoAnh: 8, ThoiGian: 480 },
+    { Hang: 8, Cot: 8, SoAnh: 8, ThoiGian: 600 }
+];
+let Level = 1;
 console.log(OTroChoi);
 
 const HienDiem = document.querySelector(".Gia-tri");
@@ -75,17 +85,22 @@ function KhiChonDung (O1, O2) {
 function OConLai() {
     let SoOConLai = 0;
     OTroChoi.forEach(function(O){
-        if(O.style.visibility !=="hidden") {
+        if(O.style.display !== "none" && O.style.visibility !== "hidden") {
             SoOConLai ++;
-
         }
-
     });
     console.log("Số ô còn lại: ", SoOConLai);
     if(SoOConLai === 0) {
         Game = false;
         clearInterval(BoDem);
-        alert("End Game");
+        //Xong để sang level
+        if (Level < BoCucLevel.length) {
+            alert("Chúc mừng! Sang Level " + (Level + 1));
+            Level ++;
+            BatDauLevel();
+        } else {
+            alert("Chúc mừng bạn đã hoàn thành tất cả level!");
+        }
 
     }
 }
@@ -102,6 +117,7 @@ function SoAnh(O1, O2) {
         console.log("Hinh khác nhau");
         return;
     }
+    // BFS
     const DuongDi = TimDuong(O1, O2);
     if (DuongDi === null) {
         console.log("Không có đường đi hợp lệ");
@@ -111,12 +127,23 @@ function SoAnh(O1, O2) {
     console.log("Đường hợp lệ:", DuongDi);
 
     // Xóa hai ô khi tìm được đường đi
-    KhiChonDung(O1, O2);
-    OConLai();
+    // KhiChonDung(O1, O2);
+    // OConLai();
+    // Hiện đường xong rồi xóa ô
+    
+    VeDuong (DuongDi);
+
+
+    setTimeout (function(){
+        DuongNoi.innerHTML ="";
+        KhiChonDung(O1, O2);
+        OConLai();
+
+    }, 300);
+    
+    // vẽ đường
+    //VeDuong (DuongDi);
 }
-
-
-
 
     // Thời gian
     function DemNguoc() {
@@ -146,26 +173,20 @@ function SoAnh(O1, O2) {
     // Thanh thời gian chia cho hợp với thời gian - công thức: Thời gian hiện tại / 600 và nhân 100 
 const BanCo = document.querySelector(".Bàn-cờ");
 function LayKichThuocBan() {
-    const CSSBanCo = getComputedStyle(BanCo);
-    const Cot = CSSBanCo.gridTemplateColumns
-    .trim()
-    .split(/\s+/)
-    .length;
-    const Hang = CSSBanCo.gridTemplateRows
-    .trim()
-    .split(/\s+/)
-    .length;
-    console.log("Số Hàng: ", Hang);
-    console.log("Số cột: ", Cot);
-    return { Hang, Cot};
+    const CauHinh = BoCucLevel [Level -1];
+    return  {
+        Hang: CauHinh.Hang, Cot: CauHinh.Cot
+    };
+
 }
 console.log("Kích thước bàn cờ:", LayKichThuocBan());
 // BFS tìm đường đi
 function LayViTri(O) {
     const ViTriO = Array.from(OTroChoi).indexOf(O);
-    const { Hang, Cot} = LayKichThuocBan();
+    const {Cot} = LayKichThuocBan();
     return {
-        Hang: Math.floor(ViTriO/ Cot), Cot: ViTriO %Cot
+        Hang: Math.floor(ViTriO / Cot), 
+        Cot: ViTriO % Cot
     };
 }
 function ODangCon(O) {
@@ -241,3 +262,90 @@ function TimDuong (O1, O2) {
 }
 return null;
 }
+const DuongNoi = document.getElementById("DuongNoi");
+function VeDuong(DuongDi) {
+    DuongNoi.innerHTML ="";
+    let ToaDo = "";
+    DuongDi.forEach(function(ViTri){
+        const [Hang, Cot] = ViTri;
+        const O = OTroChoi [Hang*LayKichThuocBan().Cot +Cot];
+        const Hinh = O.getBoundingClientRect();
+        const SVG = DuongNoi.getBoundingClientRect();
+        ToaDo += `${Hinh.left + Hinh.width / 2 - SVG.left},${Hinh.top + Hinh.height / 2 - SVG.top} `;
+
+    });
+    DuongNoi.innerHTML = `<polyline points="${ToaDo}" />`;
+}
+// tạo bố cục hình level
+function TaoHinhLevel() {
+    const CauHinh = BoCucLevel[Level - 1];
+    const SoCap = CauHinh.Hang * CauHinh.Cot / 2;
+    const DanhSachAnh = [];
+
+    //  Lấy hình cần dùng 
+    for (let i = 1; i <= CauHinh.SoAnh; i++) {
+        DanhSachAnh.push("TaiNguyen/AnhGame/a" + i + ".png");
+    }
+    // Tạo cặp
+    const CacCap = [];
+
+    for (let i = 0; i < SoCap; i++) {
+        CacCap.push(DanhSachAnh[i % DanhSachAnh.length]);
+        CacCap.push(DanhSachAnh[i % DanhSachAnh.length]);
+    }
+    // Random hình 
+    for (let i = CacCap.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [CacCap[i], CacCap[j]] = [CacCap[j], CacCap[i]];
+    }
+
+    //  Gắn hình vào ô
+    for (let i = 0; i < CacCap.length; i++) {
+        OTroChoi[i].querySelector("img").src = CacCap[i];
+    }
+}
+
+function BatDauLevel () {
+        const CauHinh = BoCucLevel[Level - 1];
+        document.querySelector(".Game-title").textContent = "LEVEL" + Level;
+        BanCo.style.gridTemplateColumns =  `repeat(${CauHinh.Cot}, 1fr)`;
+        // Ẩn ô còn lại
+        OTroChoi.forEach(function(O) {
+            O.style.display = "none";
+            O.style.visibility = "visible";
+            O.style.border = "";
+        });
+        // Hiện ô cần chơi
+        for (let i=0; i<CauHinh.Hang * CauHinh.Cot; i++ ) {
+            OTroChoi[i].style.display ="";
+        }
+        TaoHinhLevel ();
+        // Đặt thời gian về với thời gian của màn chơi
+        ThoiGianConLai = CauHinh.ThoiGian;
+        ThoiGian.textContent = ThoiGianConLai;
+        ThanhThoiGian.style.width = "100%";
+        // Hiện 
+        clearInterval(BoDem);
+        OChon = null;
+        O2 = null;
+        DaBatDau = false;
+        Game = true;
+    }
+    BatDauLevel();
+    // chọn màn để chơi
+    document.querySelectorAll("[data-level]").forEach(function(Nut) {
+    Nut.addEventListener("click", function() {
+        Level = Number(Nut.dataset.level);
+        BatDauLevel();
+    });
+});
+document.getElementById("NutLuatChoi").addEventListener("click", function() {
+    alert (
+        "Chọn hai ô có hình giống nhau. Hai ô phải nối được với nhau bằng đường đi hợp lệ, tối đa 2 lần rẽ. Mỗi cặp ghép đúng được cộng 10 điểm. Ghép hết các ô để hoàn thành màn chơi và chuyển sang level tiếp theo. Nếu hết thời gian mà chưa hoàn thành thì bạn thua cuộc"
+    );
+});
+document.getElementById("HelpMe").addEventListener("click", function() {
+    alert (
+        "Không khả dụng"
+    );
+});
