@@ -80,6 +80,10 @@ function KhiChonDung (O1, O2) {
     O2.style.visibility ="hidden";
     Diem = Diem +10;
     HienDiem.textContent = Diem;
+    // Điểm level 6
+     if (Level === 6) {
+        LEVELBoss();
+     }
   
 }
 function OConLai() {
@@ -275,6 +279,27 @@ function VeDuong(DuongDi) {
 
     });
     DuongNoi.innerHTML = `<polyline points="${ToaDo}" />`;
+}
+// Tạo độ khó LEVEL 6 boss
+function LEVELBoss() {
+    const DanhSachO = [];
+    OTroChoi.forEach(function(O) {
+        if (O.style.display !== "none" && O.style.visibility !== "hidden") {
+            DanhSachO.push(O.querySelector("img"));
+        }
+
+    });
+    const DanhSachAnh = DanhSachO.map(function(Anh) {
+        return Anh.src;
+    });
+    for (let i = DanhSachAnh.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [DanhSachAnh[i], DanhSachAnh[j]] = [DanhSachAnh[j], DanhSachAnh[i]]; 
+    }
+    DanhSachO.forEach(function(Anh, i){
+        Anh.src =DanhSachAnh[i];
+
+    });
 }
 // tạo bố cục hình level
 function TaoHinhLevel() {
